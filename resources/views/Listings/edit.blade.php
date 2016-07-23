@@ -7,12 +7,12 @@
                 <div class="card">
                     <div class="card-block">
                         <h4 class="card-title">
-                            Edit {{ $listing->name }}
+                            Edit {{ $lisitng->name }}
                         </h4>
 
                         <p class="card-text">
 
-                            {!! Form::model($listing, ['url' => '/listings/' . $listing->id, 'method' => 'PUT']) !!}
+                            {!! Form::model($lisitng, ['url' => '/listing/' . $lisitng->id, 'method' => 'PUT']) !!}
 
                             @include('listing.partials.form')
 
