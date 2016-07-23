@@ -22,7 +22,8 @@ class CreateListingsTable extends Migration
             //$table->integer('volunteer_quantity');
             $table->timestamp('starts_at');
             $table->timestamp('ends_at');
-            $table->softDeletes();
+            $table->timestamp('closed_at');
+            $table->softDeletes(); 
             $table->timestamps();
         });
     }
@@ -34,6 +35,6 @@ class CreateListingsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('listings');
     }
 }

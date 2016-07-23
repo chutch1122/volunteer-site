@@ -16,6 +16,7 @@ class CreateSkillsTable extends Migration
             $table->increments('id');
             $table->integer('user_id'); // whoever added the skill
             $table->string('name');
+            $table->integer('organization_id');
             $table->timestamps();
         });
     }

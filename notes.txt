@@ -1,0 +1,29 @@
+Post a listing
+    1) User
+        - Address
+        - Organization
+    2) Organization
+        - Address
+    3) Category
+    4) Listing
+        - Address ("work site")
+        - Start & End Date
+        - Contact Info
+        - User
+
+user
+organization
+category
+address
+contact
+listing
+------
+"Volunteer" for a listing
+
+
+listing_user
+------
+Organization
+    - "Accept" volunteer
+    - See listing has been accepted
+    - "Close" listing

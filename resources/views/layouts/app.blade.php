@@ -65,10 +65,7 @@
 </nav>
 <!--/.Navbar-->
 
-
 @yield('content')
-
-
 
 <footer class="page-footer center-on-small-only">
 
