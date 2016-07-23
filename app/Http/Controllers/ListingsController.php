@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Listing;
 
 class ListingsController extends Controller
 {
@@ -15,7 +16,7 @@ class ListingsController extends Controller
     // List of all listings (view)
     public function index()
     {
-        $all = Listing::all();
+        $all = Listing::with('organization')->get();
 
         return view('listings.index')->with('listings', $all);
     }

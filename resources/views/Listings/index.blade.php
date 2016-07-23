@@ -25,7 +25,7 @@
                                         <a href="/listing/{{ $listing->id }}">{{ $listing->title }}</a>
                                     </div>
                                     <div class="row">
-                                        <p>{{$listing->orginization->name}}</p>
+                                        <p>{{$listing->organization->name}}</p>
                                     </div>
                                     <div class="row">
                                         <p>{{$listing->start_time}}</p>
