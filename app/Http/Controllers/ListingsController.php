@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Listing;
+use DB;
+use Auth;
 
 class ListingsController extends Controller
 {
@@ -30,11 +32,13 @@ class ListingsController extends Controller
     // Create action (data-storage)
     public function store(Request $request)
     {
-        $listing = Listing::create($request->all());
+        DB::transaction(function() use ($request) {
+            $listing = Listing::create($request->all());
 
-        $listing->user_id = Auth::user()->id;
+            $listing->user_id = Auth::user()->id;
 
-        $listing->save();
+            $listing->save();
+        });
 
         return redirect('/listings')->with('success', 'Listing created!');
     }
