@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Material Design Bootstrap</title>
+    <title>Volunteer Site</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/mdb.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/mdb.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -32,10 +32,13 @@
             <!--Links-->
             <ul class="nav navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Listings</a>
+                    <a class="nav-link" href="/organizations">Organizations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/listings">Listings</a>
                 </li>
                 @if (Auth::guest())
                     <li class="nav-item">
@@ -50,7 +53,7 @@
                             &nbsp;{{ Auth::user()->name }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <a class="dropdown-item" href="{{ url('/home') }}"><i class="fa fa-btn fa-tachometer"></i> Dashboard</a>
+                            <a class="dropdown-item" href="{{ url('/dashboard') }}"><i class="fa fa-btn fa-tachometer"></i> Dashboard</a>
                             <a class="dropdown-item" href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a>
                         </div>
                     </li>
@@ -65,7 +68,9 @@
 </nav>
 <!--/.Navbar-->
 
-@yield('content')
+<div class="content" style="margin-top: 30px">
+    @yield('content')
+</div>
 
 <footer class="page-footer center-on-small-only">
 
@@ -81,10 +86,10 @@
 
 </footer>
 
-<script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
-<script type="text/javascript" src="js/tether.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/mdb.min.js"></script>
+<script type="text/javascript" src="/js/jquery-2.2.3.min.js"></script>
+<script type="text/javascript" src="/js/tether.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/mdb.min.js"></script>
 </body>
 
 </html>

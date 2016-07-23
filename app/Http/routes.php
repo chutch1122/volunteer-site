@@ -9,3 +9,5 @@ Route::auth();
 Route::get('/dashboard', 'DashboardController@index');
 
 Route::resource('/listings', 'ListingsController');
+
+Route::resource('/organizations', 'OrganizationsController');

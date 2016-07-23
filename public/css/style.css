@@ -1,1 +1,7 @@
 /* YOUR CUSTOM STYLES */
+.btn-card-header {
+    margin-top: -5px;
+}
+.btn-sm-card-header {
+    margin-top: -1px;
+}
