@@ -17,11 +17,12 @@ class Organization extends Model
 
     public function creator()
     {
-        return $this->belongsTo('App\User');
+        //return User::where('id', $this->user_id)->get()->first();
+        return $this->belongsTo('App\User', 'user_id');
     }
 
-    public function users()
+    /*public function users()
     {
         return $this->belongsToMany('App\User');
-    }
+    }*/
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Organization;
+use App\User;
 use Auth;
 
 class OrganizationsController extends Controller
@@ -31,11 +32,14 @@ class OrganizationsController extends Controller
     // Create action (data-storage)
     public function store(Request $request)
     {
-        $organization = Organization::create($request->all());
+        $user = Auth::user();
         
-        $organization->user_id = Auth::user()->id;
-
+        $organization = Organization::create($request->all());
+        $organization->user_id = $user->id;
         $organization->save();
+
+        $user->organization_id = $organization->id;
+        $user->save();
 
         return redirect('/organizations')->with('success', 'Organization created!');
     }
@@ -43,7 +47,7 @@ class OrganizationsController extends Controller
     // Show a single organization (view)
     public function show($id)
     {
-        $organization = Organization::where('id', $id)->get()->first();
+        $organization = Organization::where('id', $id)->first();
 
         return view('organizations.show')->with('organization', $organization);
     }
@@ -51,7 +55,7 @@ class OrganizationsController extends Controller
     // Modify organization form (view)
     public function edit($id)
     {
-        $organization = Organization::where('id', $id)->get()->first();
+        $organization = Organization::where('id', $id)->first();
 
         return view('organizations.edit')->with('organization', $organization);
     }
@@ -59,7 +63,7 @@ class OrganizationsController extends Controller
     // Update a organization (data-storage)
     public function update($id, Request $request)
     {
-        $organization = Organization::where('id', $id)->get()->first();
+        $organization = Organization::where('id', $id)->first();
 
         $organization->name = $request->get('name');
         $organization->website = $request->get('website');
@@ -74,7 +78,7 @@ class OrganizationsController extends Controller
     // Delete a organization (data-storage)
     public function destroy($id)
     {
-        $organization = Organization::where('id', $id)->get()->first();
+        $organization = Organization::where('id', $id)->first();
         $organization->delete();
 
         return redirect('/organizations')->with('success', 'Organization deleted!');

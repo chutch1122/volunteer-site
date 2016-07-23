@@ -26,6 +26,6 @@ class User extends Authenticatable
 
     public function organization()
     {
-        $this->hasOne('App\Organization');
+        return $this->hasOne('App\Organization');
     }
 }
