@@ -4,6 +4,9 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
+
+            @include('shared.success')
+
             <div class="card">
                 <div class="card-block">
                     <h4 class="card-title">
@@ -17,6 +20,17 @@
                     </h4>
                     <p class="card-text">
 
+                        <table class="table">
+                            @foreach($organizations as $organization)
+                            <tr>
+                                <td>{{ $organization->id }}</td>
+                                <td>
+                                    <a href="/organizations/{{ $organization->id }}">{{ $organization->name }}</a>
+                                </td>
+                                <td>{{ $organization->mission_statement }}</td>
+                            </tr>
+                            @endforeach
+                        </table>
                     </p>
                 </div>
             </div>

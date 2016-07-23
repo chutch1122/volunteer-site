@@ -8,13 +8,18 @@
                     <div class="card-block">
                         <h4 class="card-title">
                             Create an Organization
-
-
                         </h4>
+
                         <p class="card-text">
 
-                        </p>
+                            {!! Form::open(['url' => '/organizations', 'method' => 'POST']) !!}
 
+                            @include('organizations.partials.form')
+
+                            <button class="btn btn-primary" type="submit">Create!</button>
+
+                            {!! Form::close() !!}
+                        </p>
                     </div>
                 </div>
             </div>
