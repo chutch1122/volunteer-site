@@ -26,4 +26,9 @@ class Listing extends Model
     {
         return $this->belongsToMany('App\User');
     }
+
+    public function orginization()
+    {
+        return $this->belongsTo('App\Orginization');
+    }
 }
