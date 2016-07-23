@@ -15,6 +15,8 @@ class Listing extends Model
         'ends_at'
     ];
 
+    protected $dates = ['starts_at', 'ends_at'];
+
     public function creator()
     {
         return $this->belongsTo('App\User');
