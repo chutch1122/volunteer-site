@@ -8,5 +8,6 @@
 
 <div class="md-form">
     {!! Form::textarea('description', null, ['class' => 'md-textarea']) !!}
+    {!! Form::date('starts_at', \Carbon\Carbon::now()) !!}
     {!! Form::label('description', 'Description') !!}
 </div>
