@@ -125,7 +125,7 @@ class CreateSeedData extends Migration
         $listing = new Listing();
         $listing->organization_id = $organization->id;
         $listing->creator_id = $user->id;
-        $listing->title = "Pokemon God Downtown Clean-Up";
+        $listing->title = "Pokemon Go Downtown Clean-Up";
         $listing->description = "Help make downtown Cape a cleaner place. We'll be playing Pokemon Go and cleaning up garbage we find on the streets.";
         $listing->starts_at = Carbon::Now();
         $listing->category_id = "10";
