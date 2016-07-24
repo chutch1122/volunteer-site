@@ -24,7 +24,7 @@ class OrganizationsController extends Controller
     }
 
     // Create organization form (view)
-    public function create($id)
+    public function create()
     {
         return view('organizations.create');
     }
