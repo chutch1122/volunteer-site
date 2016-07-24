@@ -6,9 +6,13 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-block">
-                    <h4 class="card-title">Welcome, {{ Auth::user()->name }}!</h4>
+                    @if (str_contains(Auth::user()->name, ' '))
+                        <h4 class="card-title" style="font-weight: 400">Welcome to your dashboard, {{ substr(Auth::user()->name, 0, strpos(Auth::user()->name, " ")) }}!</h4>
+                    @else
+                        <h4 class="card-title" style="font-weight: 400">Welcome to your dashboard, {{ Auth::user()->name }}!</h4>
+                    @endif
                     <p class="card-text">
-                        Hey, {{ Auth::user()->name }}! Welcome to Volunteer Site!
+                        From here, you will be able to view your notifications, current listings, and receive recommendations on volunteer opportunities in Cape Girardeau!
                     </p>
                 </div>
             </div>
