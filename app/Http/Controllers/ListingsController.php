@@ -87,14 +87,7 @@ class ListingsController extends Controller
     // Create listing form (view)
     public function create()
     {
-        $categories = Category::all()->sortBy('name');
-        $mappedCategories = [];
-
-        foreach ($categories as $category) {
-            $mappedCategories[$category->id] = $category->name;
-        }
-
-        return view('listings.create')->with('categories', $mappedCategories);
+        return view('listings.create')->with('categories', $this->getCategoriesForDropdown());
     }
 
     // Create action (data-storage)
@@ -147,7 +140,7 @@ class ListingsController extends Controller
     {
         $listing = Listing::where('id', $id)->get()->first();
 
-        return view('listings.edit')->with('listing', $listing);
+        return view('listings.edit')->with('listing', $listing)->with('categories', $this->getCategoriesForDropdown());
     }
 
     // Update a listing (data-storage)
@@ -157,6 +150,7 @@ class ListingsController extends Controller
 
         $listing->title = $request->get('title');
         $listing->description = $request->get('description');
+        $listing->category_id = $request->get('category_id');
         //$listing->address_id = $request->get('address_id');
         $listing->starts_at = $request->get('starts_at');
         $listing->ends_at = $request->get('ends_at');
@@ -173,5 +167,19 @@ class ListingsController extends Controller
         $listing->delete();
 
         return redirect('/listings')->with('success', 'Listing deleted!');
+    }
+
+    /**
+     * @return array
+     */
+    private function getCategoriesForDropdown()
+    {
+        $categories = Category::all()->sortBy('name');
+        $mappedCategories = [];
+
+        foreach ($categories as $category) {
+            $mappedCategories[$category->id] = $category->name;
+        }
+        return $mappedCategories;
     }
 }
