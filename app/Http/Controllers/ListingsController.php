@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Requests;
 use App\Listing;
 use App\Volunteer;
@@ -42,6 +43,22 @@ class ListingsController extends Controller
         
         return view('listings.volunteer')->with('listing', $listing);
     }
+
+    public function approveVolunteer($id, $volunteerId)
+    {
+        $volunteer = Volunteer::where('id', $volunteerId)->with('user')->first();
+        $volunteer->approve();
+        
+        return redirect('/listings/' . $volunteer->listing_id)->with('success', $volunteer->use['name'] . ' has been approved!');
+    }
+
+    public function rejectVolunteer($id, $volunteerId)
+    {
+        $volunteer = Volunteer::where('id', $volunteerId)->with('user')->first();
+        $volunteer->reject();
+
+        return redirect('/listings/' . $volunteer->listing_id)->with('success', $volunteer->user['name'] . ' has been rejected!');
+    }
     
     public function close($id)
     {
@@ -70,37 +87,45 @@ class ListingsController extends Controller
     // Create listing form (view)
     public function create()
     {
-        return view('listings.create');
+        $categories = Category::all();
+        $mappedCategories = [];
+
+        foreach ($categories as $category) {
+            $mappedCategories[$category->id] = $category->name;
+        }
+
+        return view('listings.create')->with('categories', $mappedCategories);
     }
 
     // Create action (data-storage)
     public function store(Request $request)
     {
+        $listing = null;
+
         DB::transaction(function() use ($request) {
             $listing = Listing::create($request->all());
 
             $user = Auth::user();
 
             $listing->creator_id =  $user->id;
-
             $listing->organization_id =  $user->organization_id;
 
             $listing->save();
         });
 
-        return redirect('/listings')->with('success', 'Listing created!');
+        return redirect('/listings/' . $listing->id)->with('success', 'Listing created!');
     }
 
     // Show a single listing (view)
     public function show($id)
     {
         $listing = Listing::where('id', $id)->get()->first();
-        $volunteers = Volunteer::where('listing_id', $id)->with('user')->get();
+        $volunteers = Volunteer::where('listing_id', $id)->where('rejected_at', null)->with('user')->get();
 
         $hasVolunteered = false;
         $user = Auth::user();
         if ($user){
-            $count = Volunteer::where('user_id', $user->id)->where('listing_id', $listing->id)->count();
+            $count = Volunteer::where('user_id', $user->id)->where('rejected_at', null)->where('listing_id', $listing->id)->count();
             $hasVolunteered = ($count > 0);
         }
 

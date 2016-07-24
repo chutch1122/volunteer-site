@@ -47,7 +47,7 @@ class OrganizationsController extends Controller
     // Show a single organization (view)
     public function show($id)
     {
-        $organization = Organization::where('id', $id)->first();
+        $organization = Organization::where('id', $id)->get()->first();
 
         return view('organizations.show')->with('organization', $organization);
     }

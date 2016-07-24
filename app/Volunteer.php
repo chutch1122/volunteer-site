@@ -23,12 +23,14 @@ class Volunteer extends Model
     public function reject()
     {
         $this->rejected_at = Carbon::now();
+        $this->approved_at = null;
         $this->save();
     }
 
     public function approve()
     {
         $this->approved_at = Carbon::now();
+        $this->rejected_at = null;
         $this->save();
     }
 }

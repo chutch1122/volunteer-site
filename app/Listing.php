@@ -12,6 +12,7 @@ class Listing extends Model
     protected $fillable = [
         'title',
         'description',
+        'category_id',
         'starts_at',
         'ends_at'
     ];
