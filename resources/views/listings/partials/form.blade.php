@@ -17,7 +17,7 @@
     <small>Start Date</small>
     {!! Form::date(
         'starts_at',
-        ($listing) ? $listing->starts_at : null,
+        (isset($listing)) ? $listing->starts_at : null,
         ['class' => 'form-control', 'placeholder' => ' ']
         )
     !!}

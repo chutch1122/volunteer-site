@@ -8,7 +8,7 @@
                 <h3 class="card-title">
                     Listings
 
-                    @if (Auth::user() && Auth::user()->organization())
+                    @if (Auth::user() && Auth::user()->organization_id != null)
                         <a href="/listings/create" class="btn btn-sm btn-primary btn-sm-card-header pull-right">
                             Create a Volunteer Listing
                         </a>

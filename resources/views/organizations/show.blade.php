@@ -6,6 +6,11 @@
             <div class="col-md-12">
 
                 @include('shared.success')
+                @if(count($contacts) == 0)
+                    <div class="alert alert-warning" role="alert">
+                        <strong>No contacts!</strong> You need to add a contact before you can create a listing.
+                    </div>
+                @endif
 
                 <div class="card">
                     <div class="card-block">

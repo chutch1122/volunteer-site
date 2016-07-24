@@ -17,22 +17,22 @@
                             {{ csrf_field() }}
 
                             <div class="md-form">
-                                {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                                {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => ' ']) !!}
                                 {!! Form::label('name', 'Full Name') !!}
                             </div>
 
                             <div class="md-form">
-                                {!! Form::email('email', null, ['class' => 'form-control']) !!}
+                                {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => ' ']) !!}
                                 {!! Form::label('email', 'Email Address') !!}
                             </div>
 
                             <div class="md-form">
-                                {!! Form::password('password', null, ['class' => 'form-control']) !!}
+                                {!! Form::password('password', null, ['class' => 'form-control', 'placeholder' => ' ']) !!}
                                 {!! Form::label('password', 'Password') !!}
                             </div>
 
                             <div class="md-form">
-                                {!! Form::password('password_confirmation', null, ['class' => 'form-control']) !!}
+                                {!! Form::password('password_confirmation', null, ['class' => 'form-control', 'placeholder' => ' ']) !!}
                                 {!! Form::label('password_confirmation', 'Confirm Password') !!}
                             </div>
 
