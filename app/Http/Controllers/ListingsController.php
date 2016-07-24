@@ -125,7 +125,7 @@ class ListingsController extends Controller
             $listing->save();
         });
 
-        return redirect('/listings/' . $listing->id)->with('success', 'Listing created!');
+        return redirect('/listings/'); // CHANGE TO REDIRECT TO NEWLY CREATED ENTRY
     }
 
     // Show a single listing (view)

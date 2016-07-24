@@ -14,7 +14,7 @@
             Form::text(
                 'phone_1',
                 (isset($contact)) ? $contact->phoneNumberSegment(1) : null,
-                ['class' => 'form-control', 'size' => 3, 'maxlength' => 3, 'placeholder' => '573']
+                ['class' => 'form-control', 'size' => 3, 'maxlength' => 3, 'placeholder' => 'Ex. 573']
             )
         !!}
         {!! Form::label('phone_1', 'Phone Number') !!}
@@ -24,7 +24,7 @@
             Form::text(
                 'phone_2',
                 (isset($contact)) ? $contact->phoneNumberSegment(2) : null,
-                ['class' => 'form-control', 'size' => 3, 'maxlength' => 3, 'placeholder' => '555']
+                ['class' => 'form-control', 'size' => 3, 'maxlength' => 3, 'placeholder' => 'Ex. 555']
             )
         !!}
     </div>
@@ -33,7 +33,7 @@
             Form::text(
                 'phone_3',
                 (isset($contact)) ? $contact->phoneNumberSegment(3) : null,
-                ['class' => 'form-control', 'size' => 4, 'maxlength' => 4, 'placeholder' => '5555']
+                ['class' => 'form-control', 'size' => 4, 'maxlength' => 4, 'placeholder' => 'Ex. 5555']
             )
         !!}
     </div>
