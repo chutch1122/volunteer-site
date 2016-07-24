@@ -413,7 +413,7 @@ class CreateSeedData extends Migration
         $listing = new Listing(); //13
         $listing->organization_id = $organization->id;
         $listing->creator_id = $user->id;
-        $listing->title = "Escorts wanted, all genders";
+        $listing->title = "Escorts wanted";
         $listing->description = "We need able bodied people to serve as escorts for individuals walking downtown hunting pokemon. Must be 18";
         $listing->starts_at = Carbon::Now();
         $listing->category_id = "7";
