@@ -21,6 +21,11 @@ class Organization extends Model
         return $this->belongsTo('App\User', 'user_id');
     }
 
+    public function contacts()
+    {
+        return $this->belongsToMany('App\Contact');
+    }
+
     /*public function users()
     {
         return $this->belongsToMany('App\User');

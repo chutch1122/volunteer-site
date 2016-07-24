@@ -29,12 +29,35 @@
                                              style="max-width: 100%"/>
                                     </a>
                                 </div>
-                                <div class="col-md-9" style="display: inline-block; overflow: hidden">
+                                <div class="col-md-6" style="display: inline-block; overflow: hidden">
                                     <div class="card-text">
-                                        <h4><a href="/listings/{{$listing->id}}">{{ $listing->title }}</a></h4>
-                                        <p>{{ $listing->organization['name'] }}</p>
-                                        <p>{{ $listing->starts_at }}</p>
+                                        <h4 style="margin-bottom: 2px;">
+                                            <a href="/listings/{{$listing->id}}" style="font-weight: 500">{{ $listing->title }}</a>
+                                        </h4>
+                                        <span>
+                                            <a href="/organizations/{{ $listing->organization->id }}">{{ $listing->organization->name }}</a><br>
+                                            <div style="margin-top: 5px; overflow: hidden;">
+                                                @if (strlen($listing->description) > 95)
+                                                    <em>
+                                                        <?php
+                                                        $pos = strpos($listing->description, ' ', 95);;
+                                                        ?>
+                                                        {{ substr($listing->description,0, $pos) }}...
+                                                    </em>
+                                                @else
+                                                    <em>
+                                                        {{ $listing->description }}
+                                                    </em>
+                                                @endif
+                                            </div>
+                                        </span>
                                     </div>
+                                </div>
+                                <div class="col-md-3" style="display: inline-block;">
+                                    <small>
+                                        <strong>Starts On:</strong> {{ $listing->starts_at->format('m-d-Y') }} <br>
+                                        <strong>Category:</strong>  {{ $listing->category['name'] }} <br>
+                                    </small>
                                 </div>
                             </div>
                         </div>

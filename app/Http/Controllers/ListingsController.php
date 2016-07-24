@@ -79,7 +79,7 @@ class ListingsController extends Controller
     // List of all listings (view)
     public function index()
     {
-        $all = Listing::with('organization')->get();
+        $all = Listing::with('organization')->with('category')->get();
 
         return view('listings.index')->with('listings', $all);
     }
@@ -87,7 +87,7 @@ class ListingsController extends Controller
     // Create listing form (view)
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::all()->sortBy('name');
         $mappedCategories = [];
 
         foreach ($categories as $category) {
@@ -101,6 +101,13 @@ class ListingsController extends Controller
     public function store(Request $request)
     {
         $listing = null;
+
+        if (!$request->get('category_id')) {
+            return redirect()
+                ->back()
+                ->with('errors', ['category_id' => 'Category must be selected!'])
+                ->withInput();
+        }
 
         DB::transaction(function() use ($request) {
             $listing = Listing::create($request->all());
@@ -119,7 +126,7 @@ class ListingsController extends Controller
     // Show a single listing (view)
     public function show($id)
     {
-        $listing = Listing::where('id', $id)->get()->first();
+        $listing = Listing::where('id', $id)->with('category')->first();
         $volunteers = Volunteer::where('listing_id', $id)->where('rejected_at', null)->with('user')->get();
 
         $hasVolunteered = false;

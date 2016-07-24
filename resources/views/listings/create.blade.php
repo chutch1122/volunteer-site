@@ -10,6 +10,8 @@
                             Create a Listing
                         </h4>
 
+                        @include('shared.errors')
+
                         <p class="card-text">
 
                             {!! Form::open(['url' => '/listings', 'method' => 'POST']) !!}

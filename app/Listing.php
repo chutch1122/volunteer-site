@@ -29,6 +29,11 @@ class Listing extends Model
         return $this->belongsToMany('App\User');
     }
 
+    public function category()
+    {
+        return $this->belongsTo('App\Category', 'category_id');
+    }
+
     public function organization()
     {
         return $this->belongsTo('App\Organization', 'organization_id');

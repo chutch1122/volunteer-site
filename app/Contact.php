@@ -25,4 +25,9 @@ class Contact extends Model
     {
         return $this->belongsToMany('App\User');
     }
+
+    public function organizations()
+    {
+        return $this->belongsToMany('App\Organization');
+    }
 }

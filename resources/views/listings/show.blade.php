@@ -58,7 +58,11 @@
                             </h4>
                             <p>
                                 <strong>Organization: </strong>
-                                <a href="/organizations/{{ $listing->organization['id'] }}">{{ $listing->organization['name'] }}</a>
+                                <a href="/organizations/{{ $listing->organization->id }}">{{ $listing->organization->name }}</a>
+                            </p>
+                            <p>
+                                <strong>Category: </strong>
+                                {{ $listing->category->name }}
                             </p>
                             <p>
                                 <strong>Start Date:</strong>

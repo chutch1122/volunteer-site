@@ -24,7 +24,7 @@ class OrganizationsController extends Controller
     }
 
     // Create organization form (view)
-    public function create()
+    public function create($id)
     {
         return view('organizations.create');
     }
@@ -47,9 +47,10 @@ class OrganizationsController extends Controller
     // Show a single organization (view)
     public function show($id)
     {
-        $organization = Organization::where('id', $id)->get()->first();
+        $organization = Organization::where('id', $id)->first();
+        $contacts = $organization->contacts;
 
-        return view('organizations.show')->with('organization', $organization);
+        return view('organizations.show')->with('organization', $organization)->with('contacts', $contacts);
     }
 
     // Modify organization form (view)
