@@ -49,6 +49,7 @@ class CreateSeedData extends Migration
         $listing->description = "A psychic vagabond came in and kept bending our spoons. We requested that he leave, but now the majority of our silverware is bent. We are requesting three people to participate in two four-hour shifts to unbend this silverware. Meals will be provided.";
         $listing->starts_at = Carbon::Now();
         $listing->category_id = "2";
+        $listing->contact_id ="1";
         $listing->save();
 
         $user = new User(); //3
@@ -75,6 +76,7 @@ class CreateSeedData extends Migration
         $listing->description = "We need people to prepare meals for our meal centers.";
         $listing->starts_at = Carbon::Now();
         $listing->category_id = "10";
+        $listing->contact_id ="2";
         $listing->save();
 
         $user = new User(); //4
@@ -101,6 +103,7 @@ class CreateSeedData extends Migration
         $listing->description = "We need help making all the things! A chair, electronic door lock, 3D printed parts for your model car, whatever.";
         $listing->starts_at = Carbon::Now();
         $listing->category_id = "2";
+        $listing->contact_id ="3";
         $listing->save();
 
         $user = new User(); //5
@@ -127,6 +130,7 @@ class CreateSeedData extends Migration
         $listing->description = "Help make downtown Cape a cleaner place. We'll be playing Pokemon Go and cleaning up garbage we find on the streets.";
         $listing->starts_at = Carbon::Now();
         $listing->category_id = "10";
+        $listing->contact_id ="4";
         $listing->save();
 
         $category = new Category();//1
@@ -197,6 +201,7 @@ class CreateSeedData extends Migration
         $listing->description = "We neeed moderators for our facebook group";
         $listing->starts_at = Carbon::Now();
         $listing->category_id = "2";
+        $listing->contact_id ="5";
         $listing->save();
 
         $user = new User(); //7
@@ -223,6 +228,7 @@ class CreateSeedData extends Migration
         $listing->description = "We need groomers to keep the service animals groomed.";
         $listing->starts_at = Carbon::Now();
         $listing->category_id = "3";
+        $listing->contact_id ="6";
         $listing->save();
 
         $user = new User(); //8
@@ -249,6 +255,7 @@ class CreateSeedData extends Migration
         $listing->description = "We need people to visit our elderly patients and drivers.";
         $listing->starts_at = Carbon::Now();
         $listing->category_id = "6";
+        $listing->contact_id ="7";
         $listing->save();
 
         $user = new User(); //9
@@ -275,6 +282,7 @@ class CreateSeedData extends Migration
         $listing->description = "Need designers to create signs and people to help print them out for us";
         $listing->starts_at = Carbon::Now();
         $listing->category_id = "7";
+        $listing->contact_id ="8";
         $listing->save();
 
         $user = new User(); //10
@@ -301,6 +309,7 @@ class CreateSeedData extends Migration
         $listing->description = "We need some coaches for our feather weight division, former experiance in freestyle ";
         $listing->starts_at = Carbon::Now();
         $listing->category_id = "9";
+        $listing->contact_id ="9";
         $listing->save();
 
         $user = new User(); //11
@@ -326,7 +335,8 @@ class CreateSeedData extends Migration
         $listing->title = "Grief Counseler Needed";
         $listing->description = "We are looking for experts to help aid those whose families were victums of the comet strike outside of Jackson.";
         $listing->starts_at = Carbon::Now();
-        $listing->category_id = "";
+        $listing->category_id = "12";
+        $listing->contact_id ="10";
         $listing->save();
 
         $user = new User(); //12
@@ -353,6 +363,7 @@ class CreateSeedData extends Migration
         $listing->description = "We need CPAs to help review our distribution channels and find oppertunities";
         $listing->starts_at = Carbon::Now();
         $listing->category_id = "13";
+        $listing->contact_id ="11";
         $listing->save();
 
         $user = new User(); //
@@ -379,6 +390,7 @@ class CreateSeedData extends Migration
         $listing->description = "We need people to walk all these dogs! SO MANY DOGGOS!";
         $listing->starts_at = Carbon::Now();
         $listing->category_id = "3";
+        $listing->contact_id ="12";
         $listing->save();
 
         $user = new User(); //14
@@ -405,6 +417,7 @@ class CreateSeedData extends Migration
         $listing->description = "We need able bodied people to serve as escorts for individuals walking downtown hunting pokemon. Must be 18";
         $listing->starts_at = Carbon::Now();
         $listing->category_id = "7";
+        $listing->contact_id ="13";
         $listing->save();
 
         $user = new User(); //15
@@ -431,6 +444,7 @@ class CreateSeedData extends Migration
         $listing->description = "These kids really go through the pencils, we need to sharpen the up.";
         $listing->starts_at = Carbon::Now();
         $listing->category_id = "8";
+        $listing->contact_id ="14";
         $listing->save();
 
         $user = new User(); //
@@ -457,6 +471,7 @@ class CreateSeedData extends Migration
         $listing->description = "We need to stay ready, let's fold some sandbags!!!";
         $listing->starts_at = Carbon::Now();
         $listing->category_id = "11";
+        $listing->contact_id ="15";
         $listing->save();
 
     }
