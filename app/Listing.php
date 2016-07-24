@@ -13,6 +13,7 @@ class Listing extends Model
         'title',
         'description',
         'category_id',
+        'contact_id',
         'starts_at',
         'ends_at'
     ];
@@ -37,6 +38,11 @@ class Listing extends Model
     public function organization()
     {
         return $this->belongsTo('App\Organization', 'organization_id');
+    }
+
+    public function contact()
+    {
+        return $this->belongsTo('App\Contact');
     }
 
     public function open()
