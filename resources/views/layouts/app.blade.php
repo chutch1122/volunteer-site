@@ -31,14 +31,11 @@
             <a class="navbar-brand" href="/">Volunteer Site</a>
             <!--Links-->
             <ul class="nav navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="/listings">Listings</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/organizations">Organizations</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/listings">Listings</a>
                 </li>
                 @if (Auth::guest())
                     <li class="nav-item">
@@ -54,6 +51,12 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
                             <a class="dropdown-item" href="{{ url('/dashboard') }}"><i class="fa fa-btn fa-tachometer"></i> Dashboard</a>
+                            @if (Auth::user()->organization_id != null)
+                                <a class="dropdown-item"
+                                   href="{{ url('/organizations/' . Auth::user()->organization_id) }}">
+                                    <i class="fa fa-btn fa-building"></i> {{ Auth::user()->organization->name }}
+                                </a>
+                            @endif
                             <a class="dropdown-item" href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a>
                         </div>
                     </li>

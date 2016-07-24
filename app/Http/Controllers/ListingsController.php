@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Http\Requests;
 use App\Listing;
+use App\Organization;
 use App\Volunteer;
 use Auth;
 use DB;
@@ -87,7 +88,11 @@ class ListingsController extends Controller
     // Create listing form (view)
     public function create()
     {
-        return view('listings.create')->with('categories', $this->getCategoriesForDropdown());
+        $organizationId = Auth::user()->organization->id;
+
+        return view('listings.create')
+            ->with('categories', $this->getCategoriesForDropdown())
+            ->with('contacts', $this->getContactsForOrganizationDropdown($organizationId));
     }
 
     // Create action (data-storage)
@@ -99,6 +104,13 @@ class ListingsController extends Controller
             return redirect()
                 ->back()
                 ->with('errors', ['category_id' => 'Category must be selected!'])
+                ->withInput();
+        }
+
+        if (!$request->get('contact_id')) {
+            return redirect()
+                ->back()
+                ->with('errors', ['contact_id' => 'Contact must be selected!'])
                 ->withInput();
         }
 
@@ -119,7 +131,7 @@ class ListingsController extends Controller
     // Show a single listing (view)
     public function show($id)
     {
-        $listing = Listing::where('id', $id)->with('category')->first();
+        $listing = Listing::where('id', $id)->with('category')->with('contact')->first();
         $volunteers = Volunteer::where('listing_id', $id)->where('rejected_at', null)->with('user')->get();
 
         $hasVolunteered = false;
@@ -140,18 +152,34 @@ class ListingsController extends Controller
     {
         $listing = Listing::where('id', $id)->get()->first();
 
-        return view('listings.edit')->with('listing', $listing)->with('categories', $this->getCategoriesForDropdown());
+        return view('listings.edit')
+            ->with('listing', $listing)
+            ->with('categories', $this->getCategoriesForDropdown())
+            ->with('contacts', $this->getContactsForOrganizationDropdown($listing->organization_id));
     }
 
     // Update a listing (data-storage)
     public function update($id, Request $request)
     {
-        $listing = Listing::where('id', $id)->first();
+        if (!$request->get('category_id')) {
+            return redirect()
+                ->back()
+                ->with('errors', ['category_id' => 'Category must be selected!'])
+                ->withInput();
+        }
 
+        if (!$request->get('contact_id')) {
+            return redirect()
+                ->back()
+                ->with('errors', ['contact_id' => 'Contact must be selected!'])
+                ->withInput();
+        }
+        
+        $listing = Listing::where('id', $id)->first();
         $listing->title = $request->get('title');
         $listing->description = $request->get('description');
         $listing->category_id = $request->get('category_id');
-        //$listing->address_id = $request->get('address_id');
+        $listing->contact_id = $request->get('contact_id');
         $listing->starts_at = $request->get('starts_at');
         $listing->ends_at = $request->get('ends_at');
 
@@ -169,9 +197,6 @@ class ListingsController extends Controller
         return redirect('/listings')->with('success', 'Listing deleted!');
     }
 
-    /**
-     * @return array
-     */
     private function getCategoriesForDropdown()
     {
         $categories = Category::all()->sortBy('name');
@@ -181,5 +206,17 @@ class ListingsController extends Controller
             $mappedCategories[$category->id] = $category->name;
         }
         return $mappedCategories;
+    }
+
+    private function getContactsForOrganizationDropdown($organizationId)
+    {
+        $contacts = Organization::where('id', $organizationId)->first()->contacts()->get();
+        $mapped = [];
+
+        foreach ($contacts as $contact) {
+            $mapped[$contact->id] = $contact->name . " | " . $contact->email;
+        }
+
+        return $mapped;
     }
 }

@@ -41,43 +41,57 @@
                 <div class="card">
                     <div class="card-block">
                         <div class="card-text">
-                            <h4>
-                                <a href="/listings/{{$listing->id}}">{{ $listing->title }}</a>
+                            <div style="width: 100%; display: inline-block">
+                                <h4>
+                                    <a href="/listings/{{$listing->id}}">{{ $listing->title }}</a>
 
-                                @if (Auth::user() && $listing->closed_at == null && !$has_volunteered)
-                                    <a href="/listings/{{ $listing->id }}/volunteer"
-                                       class="btn btn-secondary btn-card-header pull-right">
-                                        Volunteer!
-                                    </a>
-                                @elseif (Auth::user() && $listing->closed_at == null && $has_volunteered)
-                                    <a href="/listings/{{ $listing->id }}/withdraw"
-                                       class="btn btn-warning btn-card-header pull-right">
-                                        Retract Volunteer Application
-                                    </a>
-                                @endif
-                            </h4>
-                            <p>
-                                <strong>Organization: </strong>
-                                <a href="/organizations/{{ $listing->organization->id }}">{{ $listing->organization->name }}</a>
-                            </p>
-                            <p>
-                                <strong>Category: </strong>
-                                {{ $listing->category->name }}
-                            </p>
-                            <p>
-                                <strong>Start Date:</strong>
-                                {{ $listing->starts_at->format('Y-m-d') }}
-                            </p>
-                            @if($listing->ends_at)
-                                <p>
-                                    <strong>End Date:</strong>
-                                    {{ $listing->ends_at->format('Y-m-d') }}
-                                </p>
-                            @endif
+                                    @if (Auth::user() && $listing->closed_at == null && !$has_volunteered)
+                                        <a href="/listings/{{ $listing->id }}/volunteer"
+                                           class="btn btn-secondary btn-card-header pull-right">
+                                            Volunteer!
+                                        </a>
+                                    @elseif (Auth::user() && $listing->closed_at == null && $has_volunteered)
+                                        <a href="/listings/{{ $listing->id }}/withdraw"
+                                           class="btn btn-warning btn-card-header pull-right">
+                                            Retract Volunteer Application
+                                        </a>
+                                    @endif
+                                </h4>
+                                <div class="col-xs-5 no-padding" style="display: inline-block">
+                                    <p>
+                                        <strong>Organization: </strong>
+                                        <a href="/organizations/{{ $listing->organization->id }}">{{ $listing->organization->name }}</a>
+                                        <br>
 
-                            <p>
-                                {{ $listing->description }}
-                            </p>
+                                        <strong>Category: </strong>
+                                        {{ $listing->category->name }}
+                                        <br>
+
+
+                                        <strong>Start Date:</strong>
+                                        {{ $listing->starts_at->format('Y-m-d') }}
+                                        <br>
+
+                                        @if($listing->ends_at)
+                                            <strong>End Date:</strong>
+                                            {{ $listing->ends_at->format('Y-m-d') }}
+                                        @endif
+                                    </p>
+                                </div>
+                                <div class="col-xs-5 no-padding" style="display: inline-block">
+                                    @if ($listing->contact != null)
+                                        <strong>Contact Name: </strong> {{ $listing->contact->name }} <br>
+                                        <strong>Email: </strong> {{ $listing->contact->email }} <br>
+                                        <strong>Phone Number: </strong> {{ $listing->contact->formattedPhoneNumber() }}
+                                    @endif
+                                </div>
+
+                                <div class="col-xs-12 no-padding" style="display: inline-block">
+                                    <p>
+                                        {{ $listing->description }}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -114,49 +128,51 @@
                         @if (count($volunteers) == 0)
                             <em>No volunteers... yet!</em>
                         @else
-                        <table class="table table-hover table-sm">
-                            <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Volunteered At</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($volunteers as $volunteer)
+                            <table class="table table-hover table-sm">
+                                <thead>
                                 <tr>
-                                    <td style="vertical-align: middle;">
-                                        {{ $volunteer->user['name'] }}
-                                    </td>
-                                    <td style="vertical-align: middle;">
-                                        {{ $volunteer->created_at->format('Y-m-d') }}
-                                    </td>
-                                    <td style="vertical-align: middle;">
-                                        @if ($volunteer->rejected_at)
-                                            Rejected
-                                        @elseif ($volunteer->approved_at)
-                                            Approved
-                                        @else
-                                            Applied
-                                        @endif
-                                    </td>
-                                    <td class="text-center" style="width: 20%; vertical-align: middle;">
-                                        <a class="btn btn-sm btn-success-outline no-margin"
-                                           href="/listings/{{$listing->id}}/volunteers/{{$volunteer->id}}/approve" >
-                                            Approve
-                                        </a>
-                                        <a class="btn btn-sm btn-danger-outline no-margin"
-                                            href="/listings/{{$listing->id}}/volunteers/{{$volunteer->id}}/reject">
-                                            Reject
-                                        </a>
-                                    </td>
+                                    <th>Name</th>
+                                    <th>Volunteered At</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
                                 </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                        @endif
-                        </p>
+                                </thead>
+                                <tbody>
+                                @foreach($volunteers as $volunteer)
+                                    <tr>
+                                        <td style="vertical-align: middle;">
+                                            {{ $volunteer->user['name'] }}
+                                        </td>
+                                        <td style="vertical-align: middle;">
+                                            {{ $volunteer->created_at->format('Y-m-d') }}
+                                        </td>
+                                        <td style="vertical-align: middle;">
+                                            @if ($volunteer->rejected_at)
+                                                Rejected
+                                            @elseif ($volunteer->approved_at)
+                                                Approved
+                                            @else
+                                                Applied
+                                            @endif
+                                        </td>
+                                        <td class="text-center" style="width: 20%; vertical-align: middle;">
+                                            @if(!$volunteer->approved_at)
+                                                <a class="btn btn-sm btn-success-outline no-margin"
+                                                   href="/listings/{{$listing->id}}/volunteers/{{$volunteer->id}}/approve">
+                                                    Approve
+                                                </a>
+                                            @endif
+                                            <a class="btn btn-sm btn-danger-outline no-margin"
+                                               href="/listings/{{$listing->id}}/volunteers/{{$volunteer->id}}/reject">
+                                                Reject
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                            @endif
+                            </p>
                     </div>
                 </div>
             </div>

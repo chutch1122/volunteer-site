@@ -17,6 +17,7 @@ class CreateListingsTable extends Migration
             $table->integer('organization_id');
             $table->integer('creator_id');
             $table->integer('category_id');
+            $table->integer('contact_id');
             $table->integer('address_id');
             $table->string('title');
             $table->text('description');
