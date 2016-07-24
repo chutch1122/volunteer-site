@@ -2,31 +2,131 @@
 
 @section('content')
     <div class="container">
+
+        @include('shared.success')
+
+        <div id="carousel-example-1" class="carousel slide carousel-fade" data-ride="carousel">
+
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-1" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-1" data-slide-to="1"></li>
+                <li data-target="#carousel-example-1" data-slide-to="2"></li>
+            </ol>
+
+            <div class="carousel-inner" role="listbox">
+                <div class="carousel-item active">
+                    <img src="/img/puppy1.png" alt="First slide" style="width: 100%">
+                </div>
+
+                <div class="carousel-item">
+                    <img src="/img/puppy2.png" alt="Second slide" style="width: 100%">
+                </div>
+
+                <div class="carousel-item">
+                    <img src="/img/puppy3.png" alt="Third slide" style="width: 100%">
+                </div>
+            </div>
+
+            <a class="left carousel-control" href="#carousel-example-1" role="button" data-slide="prev">
+                <span class="icon-prev" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-1" role="button" data-slide="next">
+                <span class="icon-next" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
         <div class="row">
             <div class="col-md-12">
-
-                @include('shared.success')
-
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title">
-                            {{ $listing->title }}
+                        <div class="card-text">
+                            <h4>
+                                <a href="/listings/{{$listing->id}}">{{ $listing->title }}</a>
 
-                        </h4>
-                        <p class="card-text">
+                                @if (Auth::user() && $listing->closed_at == null)
+                                    <a href="/listings/{{ $listing->id }}/volunteer"
+                                       class="btn btn-secondary btn-card-header pull-right">
+                                        Volunteer!
+                                    </a>
+                                @endif
+                            </h4>
                             <p>
-                                <strong>Website:</strong> {{ $listing->website }}
+                                <strong>Organization: </strong>
+                                <a href="/organizations/{{ $listing->organization['id'] }}">{{ $listing->organization['name'] }}</a>
                             </p>
                             <p>
-                                <strong>Mission Statement:</strong> {{ $listing->mission_statement }}
+                                <strong>Start Date:</strong>
+                                {{ $listing->starts_at->format('Y-m-d') }}
                             </p>
+                            @if($listing->ends_at)
+                                <p>
+                                    <strong>End Date:</strong>
+                                    {{ $listing->ends_at->format('Y-m-d') }}
+                                </p>
+                            @endif
+
                             <p>
                                 {{ $listing->description }}
                             </p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        @if(Auth::user() && Auth::user()->organization_id == $listing->organization_id)
+            <div class="card">
+                <div class="card-block">
+                    <div class="card-text">
+                        <h4>
+                            Manage your Listing
+                            <a href="/listings/{{ $listing->id }}/edit"
+                               class="btn btn-primary btn-card-header pull-right">
+                                Edit
+                            </a>
+                            @if ($listing->closed_at == null)
+                                <a href="/listings/{{ $listing->id }}/close"
+                                   class="btn btn-danger btn-card-header pull-right">
+                                    Close Volunteer Applications
+                                </a>
+                            @else
+                                <a href="/listings/{{ $listing->id }}/open"
+                                   class="btn btn-secondary btn-card-header pull-right">
+                                    Re-Open Volunteer Applications
+                                </a>
+                            @endif
+                        </h4>
+
+                        <p>
+                        <h5>Registered Volunteers</h5>
+                        <table class="table table-hover table-sm">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Volunteered At</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Cameron Hutchison</td>
+                                <td>7/23/2016</td>
+                                <td>Approve / Reject ?</td>
+                            </tr>
+                            <tr>
+                                <td>Kirk Tolleshaug</td>
+                                <td>7/20/2016</td>
+                                <td>Approve / Reject ?</td>
+                            </tr>
+                            </tbody>
+                        </table>
                         </p>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
 @endsection

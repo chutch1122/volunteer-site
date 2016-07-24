@@ -14,7 +14,7 @@
 
 
 
-                        @if (Auth::user() && !Auth::user()->organization())
+                        @if (Auth::user() && !Auth::user()->organization)
                         <a href="/organizations/create" class="btn btn-sm btn-primary btn-sm-card-header pull-right">
                             Create an Organization
                         </a>

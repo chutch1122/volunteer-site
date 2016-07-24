@@ -31,4 +31,16 @@ class Listing extends Model
     {
         return $this->belongsTo('App\Organization', 'organization_id');
     }
+
+    public function open()
+    {
+        $this->closed_at = null;
+        $this->save();
+    }
+
+    public function close()
+    {
+        $this->closed_at = Carbon::now();
+        $this->save();
+    }
 }

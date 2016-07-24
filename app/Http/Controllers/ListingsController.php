@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Listing;
-use DB;
 use Auth;
+use Carbon\Carbon;
+use DB;
+use Illuminate\Http\Request;
 
 class ListingsController extends Controller
 {
@@ -15,6 +15,23 @@ class ListingsController extends Controller
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
+
+    public function close($id)
+    {
+        $listing = Listing::where('id', $id)->first();
+        $listing->close();
+
+        return redirect('/listings/' . $id)->with('success', $listing->title . " has been closed!");
+    }
+
+    public function open($id)
+    {
+        $listing = Listing::where('id', $id)->first();
+        $listing->open();
+
+        return redirect('/listings/' . $id)->with('success', $listing->title . " has been opened!");
+    }
+
     // List of all listings (view)
     public function index()
     {
@@ -35,7 +52,11 @@ class ListingsController extends Controller
         DB::transaction(function() use ($request) {
             $listing = Listing::create($request->all());
 
-            $listing->user_id = Auth::user()->id;
+            $user = Auth::user();
+
+            $listing->creator_id =  $user->id;
+
+            $listing->organization_id =  $user->organization_id;
 
             $listing->save();
         });
@@ -62,7 +83,7 @@ class ListingsController extends Controller
     // Update a listing (data-storage)
     public function update($id, Request $request)
     {
-        $listing = Listing::where('id', $id)->get()->first();
+        $listing = Listing::where('id', $id)->first();
 
         $listing->title = $request->get('title');
         $listing->description = $request->get('description');

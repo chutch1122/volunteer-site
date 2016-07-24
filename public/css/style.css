@@ -5,3 +5,7 @@
 .btn-sm-card-header {
     margin-top: -1px;
 }
+
+.no-padding {
+    padding: 0;
+}

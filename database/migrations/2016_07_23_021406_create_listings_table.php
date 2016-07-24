@@ -21,8 +21,8 @@ class CreateListingsTable extends Migration
             $table->text('description');
             //$table->integer('volunteer_quantity');
             $table->timestamp('starts_at');
-            $table->timestamp('ends_at');
-            $table->timestamp('closed_at');
+            $table->timestamp('ends_at')->nullable();
+            $table->timestamp('closed_at')->nullable();
             $table->softDeletes(); 
             $table->timestamps();
         });
