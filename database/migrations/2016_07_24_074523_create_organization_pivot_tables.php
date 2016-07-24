@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class OrganizationPivotTables extends Migration
+class CreateOrganizationPivotTables extends Migration
 {
     /**
      * Run the migrations.
