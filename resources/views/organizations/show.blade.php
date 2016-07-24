@@ -55,8 +55,41 @@
                                 @if (count($contacts) == 0)
                                     <em>You haven't created any contacts for your organization!</em>
                                 @else
-                                @foreach ($contacts as $contact)
-                                @endforeach
+                                    <table class="table table-hover table-sm">
+                                        <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email Address</th>
+                                            <th>Phone Number</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($contacts as $contact)
+                                            <tr>
+                                                <td style="vertical-align: middle;">
+                                                    {{ $contact->name }}
+                                                </td>
+                                                <td style="vertical-align: middle;">
+                                                    {{ $contact->email }}
+                                                </td>
+                                                <td style="vertical-align: middle;">
+                                                    {{ $contact->formattedPhoneNumber() }}
+                                                </td>
+                                                <td class="text-center" style="width: 20%; vertical-align: middle;">
+                                                    <a class="btn btn-sm btn-primary-outline no-margin"
+                                                       href="/organizations/{{ $organization->id }}/contacts/{{ $contact->id }}/edit" >
+                                                        Edit
+                                                    </a>
+                                                    <a class="btn btn-sm btn-danger-outline no-margin"
+                                                       href="/organizations/{{ $organization->id }}/contacts/{{ $contact->id }}/delete">
+                                                        Delete
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
                                 @endif
                                 </p>
                             </div>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Contact;
+use App\Organization;
 
 class ContactsController extends Controller
 {
@@ -12,70 +14,59 @@ class ContactsController extends Controller
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
-    // List of all contacts (view)
-    public function index()
-    {
-        $all = Contact::all();
-
-        return view('contacts.index')->with('contacts', $all);
-    }
 
     // Create Contact form (view)
-    public function create()
-    {
-        return view('contacts.create');
+    public function create($organizationId)
+    {   
+        return view('contacts.create')->with('organization_id', $organizationId);
     }
 
     // Create action (data-storage)
-    public function store(Request $request)
+    public function store($organizationId, Request $request)
     {
-        $Contact = Contact::create($request->all());
+        $contact = new Contact();
 
-        $Contact->user_id = Auth::user()->id;
+        $contact->name = $request->get('name');
+        $contact->email = $request->get('email');
+        $contact->phone_number = $request->get('phone_1') . $request->get('phone_2') . $request->get('phone_3');
+        $contact->fax_number = $request->get('fax_number');
 
-        $Contact->save();
+        $contact->save();
 
-        return redirect('/contacts')->with('success', 'Contact created!');
-    }
+        $contact->organizations()->attach($organizationId);
 
-    // Show a single Contact (view)
-    public function show($id)
-    {
-        $Contact = Contact::where('id', $id)->get()->first();
-
-        return view('contacts.show')->with('Contact', $Contact);
+        return redirect('/organizations/' . $organizationId)->with('success', 'Contact created!');
     }
 
     // Modify Contact form (view)
-    public function edit($id)
+    public function edit($organizationId, $contactId)
     {
-        $Contact = Contact::where('id', $id)->get()->first();
+        $contact = Contact::where('id', $contactId)->first();
 
-        return view('contacts.edit')->with('Contact', $Contact);
+        return view('contacts.edit')->with('contact', $contact)->with('organization_id', $organizationId);
     }
 
     // Update a Contact (data-storage)
-    public function update($id, Request $request)
+    public function update($organizationId, $contactId, Request $request)
     {
-        $Contact = Contact::where('id', $id)->get()->first();
+        $contact = Contact::where('id', $contactId)->first();
 
-        $Contact->address_id = $request->get('address_id');
-        $Contact->name = $request->get('name');
-        $Contact->email = $request->get('email');
-        $Contact->phone_number = $request->get('phone_number');
-        $Contact->fax_number = $request->get('fax_number');
+        $contact->name = $request->get('name');
+        $contact->email = $request->get('email');
+        $contact->phone_number = $request->get('phone_1') . $request->get('phone_2') . $request->get('phone_3');
+        $contact->fax_number = $request->get('fax_number');
 
-        $Contact->save();
+        $contact->save();
 
-        return redirect('/contacts/' . $id)->with('success', 'Contact updated!');
+        return redirect('/organizations/' . $organizationId)->with('success', 'Contact updated!');
     }
 
     // Delete a Contact (data-storage)
-    public function destroy($id)
+    public function destroy($organizationId, $contactId)
     {
-        $Contact = Contact::where('id', $id)->get()->first();
-        $Contact->delete();
+        $contact = Contact::where('id', $contactId)->first();
+        $contact->delete();
 
-        return redirect('/contacts')->with('success', 'Contact deleted!');
+        return redirect('/organizations/' . $organizationId)->with('success', 'Contact deleted!');
     }
 }
