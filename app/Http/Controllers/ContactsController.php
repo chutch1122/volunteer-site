@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Contact;
 use App\Organization;
+use App\Listing;
 
 class ContactsController extends Controller
 {
@@ -64,7 +65,22 @@ class ContactsController extends Controller
     // Delete a Contact (data-storage)
     public function destroy($organizationId, $contactId)
     {
+        $listings = Listing::where('organization_id', $organizationId)->get();
         $contact = Contact::where('id', $contactId)->first();
+
+        $canDelete = true;
+        foreach ($listings as $listing){
+            if ($listing->contact_id == $contactId){
+                return redirect('/organizations/' . $organizationId)
+                    ->with('errors',
+                        [
+                            'contact_in_use' =>
+                            'The contact is currently assigned to a listing. Please remove ' . $contact->name . ' from all listings and try again.'
+                        ]
+                    );
+            }
+        }
+
         $contact->delete();
 
         return redirect('/organizations/' . $organizationId)->with('success', 'Contact deleted!');
