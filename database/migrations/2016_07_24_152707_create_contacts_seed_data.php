@@ -26,7 +26,7 @@ class CreateContactsSeedData extends Migration
 
         $contact = new Contact();
         $contact->name = "Blake Rhodes";
-        $contact->email = "_nospaces@gmail.com";
+        $contact->email = "_nospace@gmail.com";
         $contact->phone_number = "573-225-4952";
         $contact->fax_number = "+1-232-4863521";
         $contact->save();
