@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->text('biography');
             $table->integer('organization_id')->default(null)->nullable();
+            $table->string('phone_number');
             $table->rememberToken();
             $table->timestamps();
         });
