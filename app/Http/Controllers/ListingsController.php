@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Listing;
+use App\Volunteer;
 use Auth;
-use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
 
@@ -16,6 +16,33 @@ class ListingsController extends Controller
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
+    public function doApply($id, Request $request)
+    {
+        $volunteer = new Volunteer();
+        $volunteer->user_id = Auth::user()->id;
+        $volunteer->listing_id = $id;
+        $volunteer->pitch = $request->get('pitch');
+        $volunteer->save();
+
+        return redirect('/listings/'.$id)->with('success', 'Your volunteer application has been submitted!');
+    }
+
+    public function withdraw($id)
+    {
+        $user = Auth::user();
+        $volunteer = Volunteer::where('user_id', $user->id)->where('listing_id', $id)->first();
+        $volunteer->delete();
+
+        return redirect('/listings/'.$id)->with('success', 'Your volunteer application has been retracted.');
+    }
+
+    public function apply($id)
+    {
+        $listing = Listing::where('id', $id)->with('organization')->first();
+        
+        return view('listings.volunteer')->with('listing', $listing);
+    }
+    
     public function close($id)
     {
         $listing = Listing::where('id', $id)->first();
@@ -68,8 +95,19 @@ class ListingsController extends Controller
     public function show($id)
     {
         $listing = Listing::where('id', $id)->get()->first();
+        $volunteers = Volunteer::where('listing_id', $id)->with('user')->get();
 
-        return view('listings.show')->with('listing', $listing);
+        $hasVolunteered = false;
+        $user = Auth::user();
+        if ($user){
+            $count = Volunteer::where('user_id', $user->id)->where('listing_id', $listing->id)->count();
+            $hasVolunteered = ($count > 0);
+        }
+
+        return view('listings.show')
+            ->with('listing', $listing)
+            ->with('has_volunteered', $hasVolunteered)
+            ->with('volunteers', $volunteers);
     }
 
     // Modify listing form (view)

@@ -1,5 +1,5 @@
-@if(isset($success))
+@if(session('success'))
 <div class="alert alert-success" role="alert">
-    <strong>Success!</strong> {{ $success }}
+    <strong>Success!</strong> {{ session('success') }}
 </div>
 @endif

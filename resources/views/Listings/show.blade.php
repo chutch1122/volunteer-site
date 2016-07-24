@@ -44,10 +44,15 @@
                             <h4>
                                 <a href="/listings/{{$listing->id}}">{{ $listing->title }}</a>
 
-                                @if (Auth::user() && $listing->closed_at == null)
+                                @if (Auth::user() && $listing->closed_at == null && !$has_volunteered)
                                     <a href="/listings/{{ $listing->id }}/volunteer"
                                        class="btn btn-secondary btn-card-header pull-right">
                                         Volunteer!
+                                    </a>
+                                @elseif (Auth::user() && $listing->closed_at == null && $has_volunteered)
+                                    <a href="/listings/{{ $listing->id }}/withdraw"
+                                       class="btn btn-warning btn-card-header pull-right">
+                                        Retract Volunteer Application
                                     </a>
                                 @endif
                             </h4>
@@ -102,6 +107,9 @@
 
                         <p>
                         <h5>Registered Volunteers</h5>
+                        @if (count($volunteers) == 0)
+                            <em>No volunteers... yet!</em>
+                        @else
                         <table class="table table-hover table-sm">
                             <thead>
                             <tr>
@@ -111,18 +119,16 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Cameron Hutchison</td>
-                                <td>7/23/2016</td>
-                                <td>Approve / Reject ?</td>
-                            </tr>
-                            <tr>
-                                <td>Kirk Tolleshaug</td>
-                                <td>7/20/2016</td>
-                                <td>Approve / Reject ?</td>
-                            </tr>
+                            @foreach($volunteers as $volunteer)
+                                <tr>
+                                    <td>{{ $volunteer->user['name'] }}</td>
+                                    <td>{{ $volunteer->created_at->format('Y-m-d') }}</td>
+                                    <td>Review / Approve / Reject</td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
+                        @endif
                         </p>
                     </div>
                 </div>
