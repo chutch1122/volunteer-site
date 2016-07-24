@@ -12,21 +12,30 @@
                             </h4>
 
                             <p class="card-text">
-                                Our community is built by you. It takes great organizations who are dedicated to helping others to build a community.
+                                Our community is built by you. It takes great organizations who are dedicated to helping
+                                others to build a community.
                                 It also takes great volunteers to give their time and make a difference.
                                 We provide the tools to match up volunteers with organizations that make a
                                 difference.<br>
                             </p>
 
-                            <div align="center">
-                                <a href="/login" class="btn btn-primary">
-                                    Log In
-                                </a>
-                                <strong> OR </strong>
-                                <a href="/register" class="btn btn-primary">
-                                    Register
-                                </a>
-                            </div>
+                            @if(Auth::user())
+                                <div align="center">
+                                    <a href="/dashboard" class="btn btn-primary">
+                                        Go To Your Dashboard
+                                    </a>
+                                </div>
+                            @else
+                                <div align="center">
+                                    <a href="/login" class="btn btn-primary">
+                                        Log In
+                                    </a>
+                                    <strong> OR </strong>
+                                    <a href="/register" class="btn btn-primary">
+                                        Register
+                                    </a>
+                                    @endif
+                                </div>
                         </div>
                     </div>
                 </div>
