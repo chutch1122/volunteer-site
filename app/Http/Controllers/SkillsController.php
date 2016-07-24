@@ -1,4 +1,3 @@
-
 <?php
 
 namespace App\Http\Controllers;
@@ -43,7 +42,7 @@ class SkillsController extends Controller
     // Show a single skill (view)
     public function show($id)
     {
-        $skill = Skill\::where('id', $id)->get()->first();
+        $skill = Skill::where('id', $id)->get()->first();
 
         return view('skills.show')->with('skill', $skill);
     }
