@@ -28,7 +28,7 @@
         <!--Collapse content-->
         <div class="collapse navbar-toggleable-xs" id="collapseEx">
             <!--Navbar Brand-->
-            <a class="navbar-brand" href="/">Volunteer Site</a>
+            <a class="navbar-brand" href="/">HelpCape</a>
             <!--Links-->
             <ul class="nav navbar-nav">
                 <li class="nav-item">
@@ -46,18 +46,21 @@
                     </li>
                 @else
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
                             &nbsp;{{ Auth::user()->name }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <a class="dropdown-item" href="{{ url('/dashboard') }}"><i class="fa fa-btn fa-tachometer"></i> Dashboard</a>
+                            <a class="dropdown-item" href="{{ url('/dashboard') }}"><i
+                                        class="fa fa-btn fa-tachometer"></i> Dashboard</a>
                             @if (Auth::user()->organization_id != null)
                                 <a class="dropdown-item"
                                    href="{{ url('/organizations/' . Auth::user()->organization_id) }}">
                                     <i class="fa fa-btn fa-building"></i> {{ Auth::user()->organization->name }}
                                 </a>
                             @endif
-                            <a class="dropdown-item" href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a>
+                            <a class="dropdown-item" href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>
+                                Logout</a>
                         </div>
                     </li>
                 @endif
@@ -71,19 +74,21 @@
 </nav>
 <!--/.Navbar-->
 
-<div class="content" style="margin-top: 30px">
+
+@yield('carousel')
+<div style="padding-top: 30px;">
     @yield('content')
 </div>
 
 <footer class="page-footer center-on-small-only">
 
     <div class="call-to-action">
-        <h4>Volunteer Site</h4>
+        <h4>HelpCape</h4>
     </div>
 
     <div class="footer-copyright">
         <div class="container-fluid">
-            Copyright © 2016
+            Copyright © 2016<br>Image credits to Southeast Missourian, Yelp!, and Google.
         </div>
     </div>
 
