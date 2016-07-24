@@ -17,9 +17,6 @@ class CreateSeedData extends Migration
      */
     public function up()
     {
-        //organizations
-
-
         $user = new User();
         $user->name = "Johnny Doe";
         $user->email = "admin@example.com";
@@ -115,9 +112,9 @@ class CreateSeedData extends Migration
         $organization = new Organization();
         $organization->user_id = $user->id;
         $organization->name = "Gamers United";
-        $organization->website = "Gamers working together to make the world a better place.";
-        $organization->mission_statement = "It's like a gym, but for your mouth.";
-        $organization->description = "Gamers working together to make the world a better place.";
+        $organization->website = "www.gamersunited.com";
+        $organization->mission_statement = "Gamers working together to make the world a better place.";
+        $organization->description = "A group of gamers that strive to improve our communites, both ingame and out.";
         $organization->save();
         $user->organization_id = $organization->id;
         $user->save();
@@ -183,6 +180,6 @@ class CreateSeedData extends Migration
      */
     public function down()
     {
-
+        //
     }
 }
