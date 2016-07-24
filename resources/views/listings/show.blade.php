@@ -115,15 +115,38 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Volunteered At</th>
+                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($volunteers as $volunteer)
                                 <tr>
-                                    <td>{{ $volunteer->user['name'] }}</td>
-                                    <td>{{ $volunteer->created_at->format('Y-m-d') }}</td>
-                                    <td>Review / Approve / Reject</td>
+                                    <td style="vertical-align: middle;">
+                                        {{ $volunteer->user['name'] }}
+                                    </td>
+                                    <td style="vertical-align: middle;">
+                                        {{ $volunteer->created_at->format('Y-m-d') }}
+                                    </td>
+                                    <td style="vertical-align: middle;">
+                                        @if ($volunteer->rejected_at)
+                                            Rejected
+                                        @elseif ($volunteer->approved_at)
+                                            Approved
+                                        @else
+                                            Applied
+                                        @endif
+                                    </td>
+                                    <td class="text-center" style="width: 20%; vertical-align: middle;">
+                                        <a class="btn btn-sm btn-success-outline no-margin"
+                                           href="/listings/{{$listing->id}}/volunteers/{{$volunteer->id}}/approve" >
+                                            Approve
+                                        </a>
+                                        <a class="btn btn-sm btn-danger-outline no-margin"
+                                            href="/listings/{{$listing->id}}/volunteers/{{$volunteer->id}}/reject">
+                                            Reject
+                                        </a>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

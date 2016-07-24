@@ -12,7 +12,7 @@
                         <h4 class="card-title">
                             {{ $organization->name }}
 
-                            @if (Auth::user() && $organization->user_id == Auth::user()->organization->user_id )
+                            @if (Auth::user() && Auth::user()->organization_id != null && $organization->user_id == Auth::user()->organization->user_id )
                                 <a href="/organizations/{{ $organization->id }}/edit" class="btn btn-sm btn-primary btn-sm-card-header pull-right">
                                     Edit {{ $organization->name }}
                                 </a>
